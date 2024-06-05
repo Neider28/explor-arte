@@ -16,7 +16,7 @@ export default function Home() {
       </div>
       <div className="flex gap-3">
         <Button asChild>
-          <a className="flex flex-row gap-1" href="https://github.com/Neider28" target="_blank">
+          <a className="flex flex-row gap-1" href="https://github.com/Neider28/explor-arte" target="_blank">
             <GithubIcon />
             GitHub
           </a>
