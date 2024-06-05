@@ -1,10 +1,9 @@
 import { PrismaClient } from "@prisma/client";
-import { NextApiRequest } from "next";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function DELETE(request: NextApiRequest, { params }: any) {
+export async function DELETE(request: NextRequest, { params }: any) {
   try {
     const id = params.id;
 

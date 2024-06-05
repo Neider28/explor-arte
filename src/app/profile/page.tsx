@@ -28,7 +28,7 @@ export default function ProfilePage() {
     };
 
     fetchFavoriteArts();
-  }, []);
+  }, [setFavoriteArts]);
 
   return (
     <div className="w-full flex flex-col min-h-[100dvh]">
