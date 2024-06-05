@@ -42,7 +42,7 @@ export default function RootLayout({
                 target="_blank"
                 title="Neider Silva"
               >
-                <span className="font-normal">Hecho por</span>
+                <span className="font-normal">Made by</span>
                 <p className="text-primary font-semibold">Neider Silva</p>
               </a>
             </footer>

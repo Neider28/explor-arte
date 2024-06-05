@@ -122,7 +122,7 @@ export default function SearchPage() {
           </Form>
         </CardContent>
       </Card>
-      <main className="w-full flex-1 bg-gray-50 dark:bg-gray-900 py-8 px-4 md:px-6">
+      <div className="w-full flex-1 bg-gray-50 dark:bg-gray-900 py-8 px-4 md:px-6 rounded-lg">
         {isLoading ? (
           <Loading />
         ) : (
@@ -132,7 +132,7 @@ export default function SearchPage() {
             )}
           </div>
         )}
-      </main>
+      </div>
     </div>
   );
 }

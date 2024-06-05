@@ -9,8 +9,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
+import Loading from "@/components/loading";
+import { useMyContext } from "@/context/MainContext";
+import { tree } from "next/dist/build/templates/app-page";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -29,6 +32,7 @@ const hardcodedUser = {
 export default function LoginPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const { data: session } = useSession();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -71,50 +75,60 @@ export default function LoginPage() {
     }, 1000);
   };
 
-  return (
-    <Card className="mx-auto max-w-sm">
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Login</CardTitle>
-        <CardDescription>Enter your email and password to login to your account</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem className="space-y-2">
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input autoComplete="off" placeholder="email@example.com" type="email" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem className="space-y-2">
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input autoComplete="off" placeholder="Your password" type="password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading && (
-                <RefreshCcw className="mr-2 h-4 w-4 animate-spin" />
-              )}
-              Login
-          </Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
-  );
+  useEffect(() => {
+    if (session) {
+      router.push("/search");
+    }
+  }, [router, session]);
+
+  return (<>
+    {session ? (
+      <Loading />
+    ) : (
+      <Card className="mx-auto max-w-sm">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl font-bold">Login</CardTitle>
+          <CardDescription>Enter your email and password to login to your account</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="space-y-2">
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input autoComplete="off" placeholder="email@example.com" type="email" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem className="space-y-2">
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input autoComplete="off" placeholder="Your password" type="password" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading && (
+                  <RefreshCcw className="mr-2 h-4 w-4 animate-spin" />
+                )}
+                Login
+            </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+    )}
+  </>);
 }

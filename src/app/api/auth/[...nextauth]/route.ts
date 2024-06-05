@@ -24,9 +24,6 @@ const handler = NextAuth({
     async signIn({ user, account, profile, email, credentials }) {
       return true;
     },
-    async redirect({ url, baseUrl }) {
-      return baseUrl;
-    },
     async jwt({ token, user }) {
       return { ...token, ...user };
     },
@@ -34,6 +31,9 @@ const handler = NextAuth({
       session.user = token as any;
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      return baseUrl;
+    }
   },
   pages: {
     signIn: "/login",

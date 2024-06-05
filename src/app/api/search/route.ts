@@ -15,7 +15,7 @@ export async function GET(request: Request) {
     }
 
     const res = await fetch(
-      `https://www.rijksmuseum.nl/api/nl/collection?key=KHn4xrLx&involvedMaker=${involvedMaker}&q=${query}&ps=100`,
+      `https://www.rijksmuseum.nl/api/nl/collection?key=${process.env.API_KEY}&involvedMaker=${involvedMaker}&q=${query}&ps=100`,
     );
     const data = await res.json();
 

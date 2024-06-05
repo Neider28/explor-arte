@@ -32,7 +32,7 @@ export default function ProfilePage() {
 
   return (
     <div className="w-full flex flex-col min-h-[100dvh]">
-      <header className="bg-gray-100 dark:bg-gray-800 py-8 px-4 md:px-6">
+      <div className="bg-gray-100 dark:bg-gray-800 py-8 px-4 md:px-6 rounded-t-lg">
         <div className="container mx-auto flex flex-col items-center gap-4 md:flex-row md:gap-8">
           <Avatar className="h-20 w-20 md:h-24 md:w-24">
             <AvatarImage src="https://avatars.githubusercontent.com/u/95157364?v=4" alt="@shadcn" />
@@ -47,8 +47,8 @@ export default function ProfilePage() {
             </p>
           </div>
         </div>
-      </header>
-      <main className="w-full flex-1 bg-gray-50 dark:bg-gray-900 py-8 px-4 md:px-6">
+      </div>
+      <div className="w-full flex-1 bg-gray-50 dark:bg-gray-900 py-8 px-4 md:px-6 rounded-b-lg">
         {isLoading ? (
           <Loading />
         ) : (
@@ -64,7 +64,7 @@ export default function ProfilePage() {
             )}
           </div>
         )}
-      </main>
+      </div>
     </div>
   );
 }
